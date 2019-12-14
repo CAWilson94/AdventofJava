@@ -1,0 +1,56 @@
+public class BinaryGap {
+    /**
+     * A binary gap within a positive integer N is any maximal sequence of
+     * consecutive zeros that is surrounded by ones at both ends in the binary
+     * representation of N.
+     *
+     * number 9 has binary representation 1001 and contains a binary gap of length 2
+     *
+     * 529 has binary representation 1000010001 and contains two binary gaps:
+     * one of length 4 and one of length 3.
+     *
+     * The number 20 has binary representation 10100 and contains one binary gap of length 1.
+     *
+     * The number 15 has binary representation 1111 and has no binary gaps.
+     *
+     * he number 32 has binary representation 100000 and has no binary gaps.
+     *
+     *
+     */
+
+    /**
+     * that, given a positive integer N, returns the length of its longest binary gap.
+     * The function should return 0 if N doesn't contain a binary gap.
+     *
+     * @param N
+     * @return gap
+     */
+    public int solution(int N) {
+        String binary = Integer.toBinaryString(N);
+        char[] binChar = binary.toCharArray();
+
+        int maxGapLength = 0;
+        int count = 0;
+
+        for (int i = 0; i < binChar.length; i++) {
+            if (binChar[i] == '0') {
+                count++;
+            }
+            // if we encounter a 1 we are finished with CURRENT gap
+            if (binChar[i] == '1') {
+                if (count > maxGapLength) {
+                    maxGapLength = count;
+                }
+                count = 0;
+            }
+        }
+
+
+        return maxGapLength;
+    }
+
+    public static void main(String[] args) {
+        BinaryGap b = new BinaryGap();
+        System.out.println(b.solution(32));
+    }
+}
